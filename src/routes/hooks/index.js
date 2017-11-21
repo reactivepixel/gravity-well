@@ -1,14 +1,23 @@
 module.exports = (express) => {
   const router = express.Router();
   const util = require('apex-util');
-  const fs = require('fs');
+  const http = require('http');
 
   router.post('/max/pr', (req, res) => {
     util.log('Incomming Hook', req.body);
 //    req.body.hook.
-    const githubBaseURL = 'https://api.github.com/repos/reactivepixel/gravity-well/'
-    const rawBranches = fs.readFileSync(githubBaseURL + 'branches');
-    const branches = JSON.parse(rawBranches);
+
+const options = {
+  hostname: 'https://api.github.com',
+  path: '/repos/reactivepixel/gravity-well/',
+  method: 'GET',
+  headers: { 'Content-Type': 'application/json' }
+};
+
+const req = http.request(options, (res) => {
+  res.setEncoding('utf8');
+  res.on('data', (resData) => {
+    const branches = JSON.parse(resData);
     let commitURL;
     branches.map((branch) => {
       if(branch.name === 'release'){
@@ -18,6 +27,8 @@ module.exports = (express) => {
     })
 
     util.log('Matched Release Branch Commit URL', commitURL)
+  });
+});
 
     res.json({
       healthy: true,
