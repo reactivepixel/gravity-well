@@ -1,12 +1,14 @@
 module.exports = (express) => {
   const router = express.Router();
   const util = require('apex-util');
+  const fs = require('fs');
 
   router.post('/max/pr', (req, res) => {
     util.log('Incomming Hook', req.body);
 //    req.body.hook.
     const githubBaseURL = 'https://api.github.com/repos/reactivepixel/gravity-well/'
-    const branches = require(githubBaseURL + 'branches');
+    const rawBranches = fs.readFileSync(githubBaseURL + 'branches');
+    const branches = JSON.parse(rawBranches);
     let commitURL;
     branches.map((branch) => {
       if(branch.name === 'release'){
