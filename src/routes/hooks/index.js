@@ -7,28 +7,28 @@ module.exports = (express) => {
     util.log('Incomming Hook', req.body);
 //    req.body.hook.
 
-const options = {
-  hostname: 'https://api.github.com',
-  path: '/repos/reactivepixel/gravity-well/',
-  method: 'GET',
-  headers: { 'Content-Type': 'application/json' }
-};
+    const options = {
+      hostname: 'https://api.github.com',
+      path: '/repos/reactivepixel/gravity-well/',
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' }
+    };
 
-const req = http.request(options, (res) => {
-  res.setEncoding('utf8');
-  res.on('data', (resData) => {
-    const branches = JSON.parse(resData);
-    let commitURL;
-    branches.map((branch) => {
-      if(branch.name === 'release'){
-        commitURL = branch.commit.url;
-      }
-      return branch;
-    })
+    const innerReq = http.request(options, (innerRes) => {
+      innerRes.setEncoding('utf8');
+      innerRes.on('data', (resData) => {
+        const branches = JSON.parse(resData);
+        let commitURL;
+        branches.map((branch) => {
+          if(branch.name === 'release'){
+            commitURL = branch.commit.url;
+          }
+          return branch;
+        })
 
-    util.log('Matched Release Branch Commit URL', commitURL)
-  });
-});
+        util.log('Matched Release Branch Commit URL', commitURL)
+      });
+    });
 
     res.json({
       healthy: true,
