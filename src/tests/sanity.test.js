@@ -1,4 +1,4 @@
-const sanity = require("../sanity");
+const sanity = require("../utils/sanity");
 
 describe("sanity", () => {
   it("should return true", () => {
