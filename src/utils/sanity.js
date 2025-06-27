@@ -1,5 +1,5 @@
-function sanity() {
-  return true;
+function sanity(input) {
+  return input;
 }
 
 module.exports = sanity;
