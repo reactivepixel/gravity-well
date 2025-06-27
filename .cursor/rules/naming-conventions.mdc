@@ -1,0 +1,22 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+---
+description: Naming conventions for the project.
+alwaysApply: true
+---
+
+# Naming Conventions
+
+- **Classes**: Start with a capital letter and use underscores to separate words.
+  - Example: `My_Class_Name`
+- **Environmental Variables**: Use ALL_CAPS with underscores.
+  - Example: `MY_ENV_VAR`
+- **Constants**: Use ALL_CAPS with underscores.
+  - Example: `MY_CONSTANT`
+- **All other identifiers** (variables, functions, properties, etc.): Use snake_case.
+  - Examples: `my_variable`, `my_function`, `my_object.my_property`
+- Longer names are acceptable as long as they follow the specified conventions.
+  - Example: `my_detailed_variable_name`
