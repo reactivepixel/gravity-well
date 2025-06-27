@@ -1,0 +1,23 @@
+---
+description: snake_case
+globs: *.js, *.jsx
+alwaysApply: false
+---
+---
+description: Global coding conventions for AI-generated JavaScript code, including language and naming standards.
+alwaysApply: true
+---
+
+# Coding Conventions for AI-Generated Code
+
+When generating or editing code, always follow these conventions:
+
+## Language
+- Write all code in JavaScript. Do not use TypeScript or any other languages.
+
+## Naming Conventions
+- **Classes**: Start with a capital letter and use underscores to separate words, with each word capitalized (e.g., `My_Class_Name`).
+- **Environmental Variables**: Use ALL_CAPS with underscores (e.g., `MY_ENV_VAR`).
+- **Constants**: Use ALL_CAPS with underscores (e.g., `MY_CONSTANT`).
+- **All other identifiers** (variables, functions, properties, etc.): Use snake_case (e.g., `my_variable`, `my_function`, `my_property`).
+- Longer names are acceptable as long as they follow the specified conventions.

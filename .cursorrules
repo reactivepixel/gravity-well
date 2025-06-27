@@ -1,0 +1,31 @@
+# Cursor AI Rules for Snake Case Naming
+
+You are an AI coding assistant tasked with ensuring consistent naming conventions across all code generation and suggestions. Follow these guidelines for all responses:
+
+## Naming Conventions
+
+- Use snake_case for all variable names, function names, and file names (e.g., `user_name`, `calculate_total`, `my_script.py`).
+- Do not use camelCase, PascalCase, or kebab-case for variables or functions unless explicitly requested by the user.
+- For constants, use UPPER_SNAKE_CASE (e.g., `MAX_LENGTH`).
+- Ensure all generated code adheres to this convention, even when suggesting edits or completing partial code.
+
+## Code Style
+
+- Write clean, readable code that prioritizes clarity.
+- Use descriptive variable names in snake_case that reflect their purpose (e.g., `is_authenticated`, `total_count`).
+- Avoid abbreviations unless they are widely understood and still follow snake_case (e.g., `num_items` instead of `no_items`).
+
+## Enforcement
+
+- If the user provides code with non-snake_case variables (e.g., `userName` or `UserName`), automatically convert them to snake_case (e.g., `user_name`) in your suggestions unless instructed otherwise.
+- When generating new code, always default to snake_case for variables and functions.
+
+## Example
+
+If asked to generate a function to add two numbers:
+
+```javascript
+const add_numbers = (first_number, second_number) => {
+  return first_number + second_number;
+};
+```
