@@ -7,8 +7,8 @@ import {
   Typography,
   MenuItem,
 } from "@mui/material";
-import user_store from "../stores/user_store";
-import user_service from "../services/user_service";
+import user_store from "../stores/user_store.js";
+import user_service from "../services/user_service.js";
 
 function User_Form() {
   const [form_data, set_form_data] = useState({

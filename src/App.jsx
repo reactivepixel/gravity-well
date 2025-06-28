@@ -7,6 +7,7 @@ import Demo from "./pages/Demo";
 import Dashboard from "./pages/Dashboard";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+import Users from "./pages/Users";
 
 const theme = createTheme({
   palette: {
@@ -33,14 +34,11 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/users" element={<Users />} />
             {/* Placeholder routes for navigation items */}
             <Route
               path="/locations/*"
               element={<div>Locations Section - Coming Soon</div>}
-            />
-            <Route
-              path="/users/*"
-              element={<div>Users Section - Coming Soon</div>}
             />
             <Route
               path="/products"

@@ -11,8 +11,8 @@ import {
   Typography,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import user_store from "../stores/user_store";
-import user_service from "../services/user_service";
+import user_store from "../stores/user_store.js";
+import user_service from "../services/user_service.js";
 
 function User_List() {
   const [users, set_users] = useState([]);

@@ -1,7 +1,7 @@
 import React from "react";
 import { Container } from "@mui/material";
-import User_Form from "./User_Form";
-import User_List from "./User_List";
+import User_Form from "./User_Form.jsx";
+import User_List from "./User_List.jsx";
 
 function Users_Section() {
   return (
