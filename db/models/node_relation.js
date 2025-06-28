@@ -1,5 +1,5 @@
-const { Model, DataTypes } = require("sequelize");
-const { ulid } = require("ulid");
+import { Model, DataTypes } from "sequelize";
+import { ulid } from "ulid";
 
 class Node_relation extends Model {
   static init(sequelize) {
@@ -34,7 +34,7 @@ class Node_relation extends Model {
         },
         properties: {
           type: DataTypes.JSONB,
-          allowNull: true,
+          allowNull: false,
           defaultValue: {},
         },
         created_at: {
@@ -70,4 +70,4 @@ class Node_relation extends Model {
   }
 }
 
-module.exports = Node_relation;
+export default Node_relation;

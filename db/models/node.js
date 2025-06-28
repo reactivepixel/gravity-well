@@ -1,5 +1,5 @@
-const { Model, DataTypes } = require("sequelize");
-const { ulid } = require("ulid");
+import { Model, DataTypes } from "sequelize";
+import { ulid } from "ulid";
 
 class Node extends Model {
   static init(sequelize) {
@@ -62,4 +62,4 @@ class Node extends Model {
   }
 }
 
-module.exports = Node;
+export default Node;

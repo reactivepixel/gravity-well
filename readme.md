@@ -1,5 +1,15 @@
 # Grok Workspace Instructions: Gravity SaaS
 
+## Dev info
+
+### Sequelize commands
+
+```
+# From the db/ folder in the command line
+# migrate
+npx sequelize-cli db:migrate
+```
+
 ## Project Overview
 
 Gravity is a SaaS platform for businesses of various types (e.g., catering, retail, logistics) to manage operations, including CRM, inventory, and worker/resource tracking. Core features include:
