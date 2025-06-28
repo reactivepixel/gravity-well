@@ -20,10 +20,15 @@ class Node extends Model {
         },
         properties: {
           type: DataTypes.JSONB,
-          allowNull: true,
+          allowNull: false,
           defaultValue: {},
         },
         created_at: {
+          type: DataTypes.DATE,
+          defaultValue: DataTypes.NOW,
+          allowNull: false,
+        },
+        updated_at: {
           type: DataTypes.DATE,
           defaultValue: DataTypes.NOW,
           allowNull: false,
@@ -34,8 +39,8 @@ class Node extends Model {
         modelName: "node",
         tableName: "nodes",
         timestamps: true,
-        updatedAt: false,
         createdAt: "created_at",
+        updatedAt: "updated_at",
       }
     );
   }

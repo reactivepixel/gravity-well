@@ -37,12 +37,24 @@ class Node_relation extends Model {
           allowNull: true,
           defaultValue: {},
         },
+        created_at: {
+          type: DataTypes.DATE,
+          defaultValue: DataTypes.NOW,
+          allowNull: false,
+        },
+        updated_at: {
+          type: DataTypes.DATE,
+          defaultValue: DataTypes.NOW,
+          allowNull: false,
+        },
       },
       {
         sequelize,
         modelName: "node_relation",
         tableName: "node_relations",
-        timestamps: false,
+        timestamps: true,
+        createdAt: "created_at",
+        updatedAt: "updated_at",
         indexes: [
           {
             unique: true,
