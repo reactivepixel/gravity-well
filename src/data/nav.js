@@ -9,8 +9,10 @@ import {
 
 export const navigation_data = {
   top_nav: [
-    { label: "About", path: "/about" },
-    { label: "Contact", path: "/contact" },
+    { label: "Locations", path: "/locations" },
+    { label: "Users", path: "/users" },
+    { label: "Products", path: "/products" },
+    { label: "Clients", path: "/clients" },
   ],
 
   sidebar_sections: [
