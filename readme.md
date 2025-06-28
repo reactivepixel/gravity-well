@@ -57,8 +57,8 @@ Gravity is a SaaS platform for businesses of various types (e.g., catering, reta
 - **Local Development**:
   - Run `docker-compose up` to start microservices, PostgreSQL, RabbitMQ, and Nginx (serving the React.js web app).
   - Use **Vite** to scaffold and run the React frontend: `npm create vite@latest` with the React template, then `npm install @mui/material @emotion/react @emotion/styled react-router-dom @jotai/core axios` for Material-UI, routing, state management, and API calls.
-  - Configure Vite to bundle Material-UI’s styles and optimize for static output.
-  - Use `.env` files for configuration, including module settings, API endpoints, and Vite’s base URL for static hosting.
+  - Configure Vite to bundle Material-UI's styles and optimize for static output.
+  - Use `.env` files for configuration, including module settings, API endpoints, and Vite's base URL for static hosting.
   - Example Vite setup for Material-UI and React Router:
     ```bash
     npm create vite@latest my-app -- --template react
@@ -76,7 +76,7 @@ Gravity is a SaaS platform for businesses of various types (e.g., catering, reta
 
 ## Deployment
 
-- **Target**: Local hosting using Docker containers for Node.js microservices, PostgreSQL, RabbitMQ, and Nginx (serving the React.js web app). For static hosting (e.g., AWS S3), use Vite’s `npm run build` to generate a `dist` folder with static assets (HTML, CSS, JS).
+- **Target**: Local hosting using Docker containers for Node.js microservices, PostgreSQL, RabbitMQ, and Nginx (serving the React.js web app). For static hosting (e.g., AWS S3), use Vite's `npm run build` to generate a `dist` folder with static assets (HTML, CSS, JS).
 - **CI/CD Workflow**: GitHub Actions for linting, testing, building Docker images, and deploying to local Docker or S3. For S3, sync the `dist` folder using AWS CLI. Use environment-specific docker-compose files (dev vs. prod).
 - **Module Deployment**: Package modules as separate Docker containers or service extensions, deployed based on client configuration. The React.js frontend dynamically loads module-specific Material-UI components based on API responses, using React Router for navigation and Jotai for state.
 - **S3 Configuration**:
@@ -118,3 +118,86 @@ Gravity is a SaaS platform for businesses of various types (e.g., catering, reta
 - Regularly update the Kanban board to reflect task and module development progress.
 - Test event-driven workflows (e.g., task creation triggering inventory updates), module enable/disable functionality, Material-UI animations, React Router navigation, and Jotai state updates early to ensure RabbitMQ and UI integrity.
 - Document module APIs, React.js component usage, Material-UI configurations, React Router routes, and Jotai atoms in a central README for each module.
+
+## Database Setup
+
+The Gravity SaaS platform uses PostgreSQL with Sequelize ORM for data persistence. The database is designed to support a hierarchical node structure for entities like companies and users, with ULID primary keys and JSONB properties.
+
+### Prerequisites
+
+- Docker and Docker Compose
+- Node.js 16 or higher
+- npm 7 or higher
+
+### Environment Setup
+
+1. Create a `.env` file in the project root with the following content:
+   ```
+   DB_HOST=postgres
+   DB_PORT=5432
+   DB_NAME=gravity
+   DB_USER=user
+   DB_PASSWORD=password
+   NODE_ENV=development
+   ```
+
+### Database Initialization
+
+1. Start the PostgreSQL container:
+
+   ```bash
+   docker-compose up -d
+   ```
+
+2. Wait for the container to be healthy (check with `docker ps`)
+
+3. Initialize the database schema:
+
+   ```bash
+   # Option 1: Using psql (if installed)
+   psql -h localhost -U user -d gravity -f schema.sql
+
+   # Option 2: Using Sequelize sync (development only)
+   node -e "require('./models').sequelize.sync({ force: true })"
+   ```
+
+### Database Commands
+
+- `npm run db:migrate` - Run pending migrations
+- `npm run db:seed` - Run database seeders
+- `npm run db:reset` - Drop, recreate, and migrate the database
+
+### Model Structure
+
+The database uses two main tables:
+
+1. `nodes` - Stores hierarchical entities
+
+   - `id` (ULID) - Primary key
+   - `type` - Entity type (e.g., 'company', 'user')
+   - `name` - Optional entity name
+   - `properties` - JSONB field for flexible properties
+   - `created_at` - Creation timestamp
+
+2. `node_relations` - Stores relationships between nodes
+   - `id` (ULID) - Primary key
+   - `parent_id` - Reference to parent node
+   - `child_id` - Reference to child node
+   - `relation_type` - Type of relationship
+   - `properties` - JSONB field for relationship properties
+
+### Development Notes
+
+- ULIDs are used for all primary keys to ensure uniqueness and sortability
+- JSONB columns support flexible property storage
+- GIN indexes are used for efficient JSONB querying
+- The schema supports both one-to-one and one-to-many relationships
+- All foreign keys have CASCADE delete behavior
+
+### AWS RDS Deployment
+
+For AWS RDS deployment:
+
+1. Update the `.env` file with RDS credentials
+2. Ensure the security group allows access from the application
+3. Run migrations using `npm run db:migrate`

@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: gravity_postgres
+    environment:
+      POSTGRES_DB: gravity
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - gravity-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user -d gravity"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
+    name: gravity_postgres_data
+
+networks:
+  gravity-network:
+    name: gravity-network
